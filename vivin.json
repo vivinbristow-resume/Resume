@@ -1,0 +1,65 @@
+{
+  "personalInfo": {
+    "name": "Vivin Bristow",
+    "title": "HR Operations Specialist",
+    "address": "Palavakkam, Chennai - 41",
+    "phone": "+91 82206 83383",
+    "email": "vivinbristow@gmail.com",
+    "profilePic": "assets/img/passport.jpeg"
+  },
+  "images": {
+    "coreCompetencyImages": [
+      "core-1.png",
+      "core-2.png",
+      "core-3.png",
+      "core-4.png",
+      "core-5.png",
+      "core-6.png"
+    ],
+    "collegeImages": [
+      "PG-1.jpeg",
+      "PG-2.jpeg",
+      "UG-1.jpeg",
+      "UG-2.jpeg"
+    ],
+    "workImages": [
+      "work.jpeg"
+    ],
+    "technicalSkillsImages": [
+      "tech-1.png",
+      "tech-2.png",
+      "tech-3.png",
+      "tech-4.png"
+    ]
+  },
+  "summary": "Results-driven HR Coordinator with 3+ years of experience in campus hiring and HR operations at Cognizant. Skilled in streamlining recruitment processes, enhancing candidate engagement, and driving seamless onboarding. Proven expertise in vendor management, employee engagement initiatives, and collaborative hiring strategies that align with organizational goals.",
+  "experience": [
+    {
+      "company": "Cognizant Technology Solutions",
+      "location": "Chennai, TN",
+      "role": "HR Coordinator – Campus Hiring & Operations",
+      "dates": "2022 – Present",
+      "responsibilities": [
+        "Spearheaded end-to-end campus recruitment drives for internships and full-time roles, managing candidate outreach, screening, coordination, and onboarding processes.",
+        "Served as the primary contact for candidate communications, ensuring timely responses and smooth transitions through documentation and joining formalities.",
+        "Coordinated with third-party recruitment vendors to optimize talent sourcing and hiring pipelines, maintaining daily trackers and comprehensive reporting dashboards.",
+        "Developed strong partnerships with internal hiring managers to align recruitment strategies with role-specific needs and business objectives.",
+        "Designed and executed an employee engagement survey for Khivraj Motors, identifying key workforce sentiment drivers and enabling targeted training programs, resulting in improved employee motivation and customer satisfaction."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "degree": "Master of Business Administration (MBA)",
+      "institution": "Anna University",
+      "location": "Chennai",
+      "dates": "2019 – 2021"
+    },
+    {
+      "degree": "Bachelor of Commerce (B.Com)",
+      "institution": "Madras University",
+      "location": "Chennai",
+      "dates": "2016 – 2019"
+    }
+  ]
+}
