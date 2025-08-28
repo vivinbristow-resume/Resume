@@ -1,3 +1,18 @@
+// Utility function to get the base path of the GitHub repository for correct routing
+function getRepoBasePath() {
+    const path = window.location.pathname;
+    // For local dev, path might be just "/index.html" or "/resume.html"
+    // For GitHub Pages, it's typically "/your-repo-name/index.html"
+    const parts = path.split('/');
+    // Check if the first part (after initial "/") is likely a repo name
+    // (i.e., not empty, and not the actual page file name itself)
+    if (parts.length > 1 && parts[1] && !parts[1].includes('.')) {
+        return `/${parts[1]}/`; // e.g., "/your-repo-name/"
+    }
+    return '/'; // Assume root if not a GitHub Pages repo structure
+}
+
+
 // Function to handle the welcome page (formerly game-like intro)
 function handleIntroPage() {
     const welcomeScreen = document.getElementById('welcome-screen');
@@ -6,7 +21,8 @@ function handleIntroPage() {
     if (welcomeScreen && enterResumeBtn) {
         // Function to redirect to the resume page
         const redirectToResume = () => {
-            window.location.href = 'resume.html';
+            const basePath = getRepoBasePath();
+            window.location.href = `${basePath}resume.html`; // Use dynamic base path
         };
 
         // Listen for a click on the "ENTER" button
@@ -197,11 +213,11 @@ async function loadResumeContent() {
             }
 
 
-            // --- Populate Professional Experience ---
-            data.experience.forEach((job, index) => {
+            // --- Populate Professional Experience (UPDATED LOGIC) ---
+            data.experience.forEach((job, jobIndex) => {
                 const entryDiv = document.createElement('div');
                 entryDiv.classList.add('experience-entry');
-                entryDiv.style.animationDelay = `${0.9 + index * 0.15}s`; // Stagger animation
+                entryDiv.style.animationDelay = `${0.9 + jobIndex * 0.15}s`; // Stagger animation for each job
 
                 const descriptionCol = document.createElement('div');
                 descriptionCol.classList.add('description-col');
@@ -216,23 +232,52 @@ async function loadResumeContent() {
                 companyUniversity.textContent = `${job.company}, ${job.location}`;
                 descriptionCol.appendChild(companyUniversity);
 
-                const respList = document.createElement('ul');
-                job.responsibilities.forEach(resp => {
-                    const li = document.createElement('li');
-                    li.textContent = resp;
-                    respList.appendChild(li);
-                });
-                descriptionCol.appendChild(respList);
-                entryDiv.appendChild(descriptionCol);
-
-
                 const datesCol = document.createElement('div');
                 datesCol.classList.add('dates-col');
                 const datesSpan = document.createElement('span');
                 datesSpan.classList.add('dates');
                 datesSpan.textContent = job.dates;
                 datesCol.appendChild(datesSpan);
+
+                // Append general job details (title, company, dates)
+                entryDiv.appendChild(descriptionCol);
                 entryDiv.appendChild(datesCol);
+
+
+                // Iterate through the 'details' array for sub-sections
+                if (job.details && job.details.length > 0) {
+                    const detailsContainer = document.createElement('div');
+                    detailsContainer.classList.add('experience-details-container');
+
+                    job.details.forEach(detail => {
+                        const detailSection = document.createElement('div');
+                        detailSection.classList.add('experience-detail-section');
+
+                        const detailTitle = document.createElement('h4'); // Using h4 for sub-section titles
+                        detailTitle.classList.add('experience-detail-title');
+                        detailTitle.textContent = detail.title;
+                        detailSection.appendChild(detailTitle);
+
+                        if (detail.subtitle) { // For projects with a specific name
+                            const detailSubtitle = document.createElement('p');
+                            detailSubtitle.classList.add('experience-detail-subtitle');
+                            detailSubtitle.textContent = detail.subtitle;
+                            detailSection.appendChild(detailSubtitle);
+                        }
+
+                        const pointsList = document.createElement('ul');
+                        pointsList.classList.add('experience-detail-points'); // New class for points ul
+
+                        detail.points.forEach(point => {
+                            const li = document.createElement('li');
+                            li.innerHTML = point; // Use innerHTML to render bold tags or nested ul
+                            pointsList.appendChild(li);
+                        });
+                        detailSection.appendChild(pointsList);
+                        detailsContainer.appendChild(detailSection);
+                    });
+                    entryDiv.appendChild(detailsContainer); // Append all details to the main entry
+                }
 
                 experienceContainer.appendChild(entryDiv);
             });
@@ -306,7 +351,8 @@ async function loadResumeContent() {
 
 // Determine which function to run based on the current page
 document.addEventListener('DOMContentLoaded', () => {
-    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+    // Check if we are on index.html (or root) to handle the intro page
+    if (window.location.pathname.endsWith('index.html') || window.location.pathname === getRepoBasePath()) {
         handleIntroPage();
     } else if (window.location.pathname.endsWith('resume.html')) {
         loadResumeContent();
